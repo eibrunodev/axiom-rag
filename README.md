@@ -4,7 +4,7 @@
 
  # Olá mundo, me chamo Bruno Souza <img  src="https://github.com/TheDudeThatCode/TheDudeThatCode/blob/db8f1cbd38ac0ae2a08f36f961096dbd59a02393/Assets/PC.gif" width="30">
 ###  Um pouco sobre Mim <img  src="https://github.com/TheDudeThatCode/TheDudeThatCode/blob/db8f1cbd38ac0ae2a08f36f961096dbd59a02393/Assets/Mario_Hello_Big.gif" width="30">
-Sou apaixonado em desafios :blush:  Desenvolvedor Frontend com 1 ano de experiência em desenvolvimento de aplicações web e mobile utilizando React.js, React Native e Quasar Framework. Conhecimento prático em Node.js e Python, além de habilidades avançadas em estilização com Tailwind CSS, SCSS e CSS. Proativo, adaptável e sempre em busca de soluções eficientes e inovadoras. Pronto para enfrentar novos desafios em projetos dinâmicos e colaborativos.
+Sou apaixonado em desafios :blush:  Desenvolvedor Frontend com experiência em desenvolvimento de aplicações web e mobile utilizando React.js, React Native e Quasar Framework. Conhecimento prático em Node.js e Python, além de habilidades avançadas em estilização com Tailwind CSS, SCSS e CSS. Proativo, adaptável e sempre em busca de soluções eficientes e inovadoras. Pronto para enfrentar novos desafios em projetos dinâmicos e colaborativos.
  :rocket:  &nbsp; 
  <br/>
  <br/> :blush: &nbsp; Participei de alguns eventos online como o Nlw:rocket:, Curso em Vídeo:mortar_board:, Digitalinnovation:school_satchel:, 
